@@ -508,7 +508,7 @@ $E_{ij}$ : $n_{i+}n_{+j}/n$, where $n_{i+}$ is the row count sum, $n_{+j}$ is th
 chisq.test(cancer.polyps)
 ```
 
-!! Mathematically, two tests above are equivalent. `prop.test()` uses `chisq.test()` internally and print output differently.
+Mathematically, two tests above are equivalent. `prop.test()` uses `chisq.test()` internally and print output differently.
 
 
 ### Fisher's exact test
@@ -732,10 +732,9 @@ on the *Simply Statistics* blog.
 
 ## Linear modelling
 
-On the plots above, `abline(0, 1)` was used to add a line with
-intercept 0 and slop 1. It we want to add the line that models the
-data linearly, we can calculate the parameters using the `lm`
-function:
+`abline(0, 1)` can be used to add a line with intercept 0 and
+slop 1. It we want to add the line that models the data linearly, we
+can calculate the parameters using the `lm` function:
 
 ```{r}
 lmod <- lm(r2 ~ r1)
@@ -780,6 +779,14 @@ See also `?influence.measures`.
 >    a linear model for one $(x_i, y_i)$ pair of your choice and
 >    visualise/check the model.
 
+```{r}
+x3 <- anscombe[, 3]
+y3 <- anscombe[, 7]
+lmod <- lm(y3 ~ x3)
+summary(lmod)
+par(mfrow = c(2, 2))
+plot(lmod)
+```
 
 Finally, let's conclude by illustrating how `ggplot2` can very
 elegantly be used to produce similar plots, with useful annotations:
@@ -797,7 +804,7 @@ p + geom_smooth(method = "lm") +
 > Replicate the MA plot above using `ggplot2`. Then add a
 > non-parametric lowess regression using `geom_smooth()`.
 
-```{r, echo=FALSE, eval=FALSE}
+```{r}
 p <- ggplot(aes(x = A, y = M), data = dfr) + geom_point()
 p + geom_smooth() + geom_quantile(colour = "red")
 ```
